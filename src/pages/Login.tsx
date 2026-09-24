@@ -1,9 +1,11 @@
 import { loginUser } from "@/service/authApi";
 import { useNavigate, } from "react-router-dom"
 import type { ILoginValues } from "@/types/auth";
+import { useAuth } from "@/providers/AuthContext";
 import type React from "react";
 function Login() {
     const navigate = useNavigate();
+    const { startSession } = useAuth();
 
     async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -14,6 +16,7 @@ function Login() {
         };
         try {
             const response = await loginUser(loginData);
+            startSession(response);
             navigate("/home", { replace: true });
             console.log(response);
 
