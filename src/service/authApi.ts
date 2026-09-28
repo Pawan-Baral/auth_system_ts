@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import type { ILoginValues, ILoginResponse, IRegisterValues, IRegisterResponse, IUser, ProfileResponse } from "@/types/auth";
+import type { ILoginValues, ILoginResponse, IRegisterValues, IRegisterResponse, IUser, ProfileResponse, IContact } from "@/types/auth";
 //https://auth.durlavparajuli.com.np/ 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -13,14 +13,12 @@ api.interceptors.request.use(
             config.headers.Authorization = `Bearer ${token}`;
         }
 
-        console.log(`Sending ${config.method.toUpperCase()} request to ${config.url}`);
+        console.log(
+            `Sending ${(config.method ?? "request").toUpperCase()} request to ${config.url}`
+        );
         return config; // You MUST return the config object, otherwise the request hangs
     },
-    (error) => {
-        setError(error.message);
-        // Handle request setup errors here
-        return Promise.reject(error);
-    }
+
 );
 
 export async function loginUser(values: ILoginValues): Promise<ILoginResponse> {
@@ -34,7 +32,7 @@ export async function registerUser(values: IRegisterValues): Promise<IRegisterRe
 
 }
 export async function getProfile(): Promise<ProfileResponse> {
-    const response = await api.get<IUser>(
+    const response = await api.get<ProfileResponse>(
         "/api/profile"
     );
 
@@ -45,6 +43,22 @@ export async function getServices() {
         "/api/services"
     );
 
+
     return response.data;
 }
+export async function submitContact(contactData: IContact): Promise<{ message: string }> {
+    const response = await api.post<IContact>(
+        "/api/contact", contactData
+    );
+
+    return response.data;
+}
+export async function logoutUser() {
+    const response = await api.post(
+        "/api/auth/logout",
+    );
+
+    return response.data;
+}
+
 

@@ -26,26 +26,26 @@ function Login() {
     }
     return (
         <div>
-            <main className='flex min-h-screen items-center justify-center bg-slate-100 px-4 py-8'>
+            <main className='flex min-h-screen items-center justify-center bg-surface-base px-4 py-8'>
                 <form onSubmit={handleLogin}
-                    className="flex w-full max-w-lg flex-col gap-5 rounded-2xl border border-slate-200 bg-red-300 p-6 shadow-lg">
+                    className="flex w-full max-w-lg border-none flex-col gap-5 bg-surface-card rounded-2xl border border-slate-200  glow-effect p-6 shadow-lg">
                     <div className="mb-1 text-center">
-                        <h1 className="text-3xl font-bold  tracking-tighter text-slate-900">Welcome backs</h1>
-                        <p className="text-md text-slate-500"> Sign in to continue to your account.</p>
+                        <h1 className="text-3xl font-bold tracking-tighter text-heading">Welcome backs</h1>
+                        <p className="text-md text-muted"> Sign in to continue to your account.</p>
                     </div>
                     <div className="flex flex-row items-center gap-4">
                         <label htmlFor="email"
-                            className="text-sm w-20 font-medium text-slate-700">Email</label>
+                            className="text-sm w-20 font-medium text-muted">Email</label>
                         <input
                             id="email"
                             name="email"
                             type="email"
                             placeholder="Sachin.yadav@yahoo.com"
-                            className="h-11 flex-1 w-full bg-white rounded-md px-3 text-slate-900 placeholder:text-slate-400 "
+                            className="h-11 flex-1 w-full bg-surface-base rounded-md px-3 text-main placeholder:text-slate-400 "
                         />
                     </div>
                     <div className="flex flex-row items-center gap-4">
-                        <label htmlFor="password" className="text-sm w-20 font-medium text-slate-700">
+                        <label htmlFor="password" className="text-sm w-20 font-medium text-muted">
                             Password
                         </label>
 
@@ -54,10 +54,10 @@ function Login() {
                             name="password"
                             type="password"
                             placeholder="Enter your password"
-                            className="h-11 flex-1 w-full bg-white rounded-md px-3 text-slate-900 placeholder:text-slate-400"
+                            className="h-11 flex-1 w-full bg-surface-base rounded-md px-3 text-main placeholder:text-slate-400"
                         />
                     </div>
-                    <button type="submit" className="h-11 w-full bg-blue-600 rounded-md text-white hover:bg-blue-700 transition hover:-translate-y-1">Log in </button>
+                    <button type="submit" className="h-11 w-full bg-primary rounded-md text-white hover:bg-primary-hover transition hover:-translate-y-1">Log in </button>
                 </form>
 
             </main>

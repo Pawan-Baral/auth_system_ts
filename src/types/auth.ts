@@ -33,6 +33,18 @@ export interface IRegisterResponse {
     message: string;
     user: IUser;
 }
-export interface ProfileResponse {
-    user: IUser;
+export interface ProfileResponse extends IUser { }
+export interface IService {
+    id: string;
+    title: string;
+    shortDescription?: string;
+    description: string;
+    price?: number;
+}
+export interface IContact {
+    name: string,
+    email: string,
+    phone: string,
+    subject: string,
+    message: string;
 }

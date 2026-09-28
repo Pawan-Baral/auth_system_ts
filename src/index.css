@@ -1,115 +1,282 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   1. TAILWIND V4 THEME MAPPING
+   Maps custom CSS tokens directly to Tailwind utility classes.
+   ========================================================================== */
+@theme {
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-light: var(--color-primary-light);
+  --color-primary-glow: var(--color-primary-glow);
+
+  --color-secondary: var(--color-secondary);
+  --color-secondary-hover: var(--color-secondary-hover);
+  --color-secondary-light: var(--color-secondary-light);
+
+  --color-surface-base: var(--bg-surface-base);
+  --color-surface-card: var(--bg-surface-card);
+  --color-surface-elevated: var(--bg-surface-elevated);
+
+  --color-main: var(--text-main);
+  --color-muted: var(--text-muted);
+  --color-heading: var(--text-heading);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-border-accent: var(--border-accent);
+
+  --color-error: var(--color-error);
+  --color-error-light: var(--color-error-light);
+  --color-success: var(--color-success);
+  --color-success-light: var(--color-success-light);
+
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+  --font-mono: var(--font-mono);
+
+  --shadow-premium-sm: var(--shadow-sm);
+  --shadow-premium-md: var(--shadow-md);
+  --shadow-premium-lg: var(--shadow-lg);
+  --shadow-glow: var(--shadow-glow);
+}
+
+/* ==========================================================================
+   2. LIGHT MODE (PREMIUM & CLEAN)
+   Complementary Hues:
+   - Primary: 250 (Indigo / Deep Violet) -> Trust, Authority, Tech
+   - Secondary: 172 (Emerald Teal) -> Accent, Balance, High Energy
+   ========================================================================== */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* Brand Hues */
+  --color-primary-hue: 250;
+  --color-secondary-hue: 172;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* Primary Token Scale */
+  --color-primary: hsl(var(--color-primary-hue), 84%, 60%);
+  --color-primary-hover: hsl(var(--color-primary-hue), 84%, 52%);
+  --color-primary-light: hsl(var(--color-primary-hue), 85%, 96%);
+  --color-primary-glow: hsla(var(--color-primary-hue), 84%, 60%, 0.18);
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
+  /* Secondary Token Scale */
+  --color-secondary: hsl(var(--color-secondary-hue), 72%, 40%);
+  --color-secondary-hover: hsl(var(--color-secondary-hue), 72%, 32%);
+  --color-secondary-light: hsl(var(--color-secondary-hue), 70%, 95%);
+
+  /* Premium Surfaces & Depth */
+  --bg-surface-base: #fafafa;
+  --bg-surface-card: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-code: #f3f4f6;
+
+  /* Typography Colors */
+  --text-heading: #0f172a;
+  --text-main: #334155;
+  --text-muted: #64748b;
+
+  /* Borders & Dividers */
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --border-accent: hsla(var(--color-primary-hue), 84%, 60%, 0.3);
+
+  /* Status Colors */
+  --color-error: #ef4444;
+  --color-error-light: #fef2f2;
+  --color-success: #10b981;
+  --color-success-light: #ecfdf5;
+
+  /* Premium Multi-layered Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+  --shadow-glow: 0 0 25px -5px hsla(var(--color-primary-hue), 84%, 60%, 0.25);
+
+  /* Fonts */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Global Body Settings */
+  font-size: 16px;
+  line-height: 1.6;
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
   color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
+  color: var(--text-main);
+  background-color: var(--bg-surface-base);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+/* Responsive Root Sizing */
+@media (max-width: 1024px) {
+  :root {
+    font-size: 15px;
   }
 }
 
+/* ==========================================================================
+   3. DARK MODE (LUXURY OLED / GRAPHITE)
+   Deep obsidian background with soft violet glows and crisp readable contrast.
+   ========================================================================== */
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+    --color-primary: hsl(var(--color-primary-hue), 90%, 68%);
+    --color-primary-hover: hsl(var(--color-primary-hue), 90%, 75%);
+    --color-primary-light: hsla(var(--color-primary-hue), 90%, 68%, 0.12);
+    --color-primary-glow: hsla(var(--color-primary-hue), 90%, 68%, 0.3);
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+    --color-secondary: hsl(var(--color-secondary-hue), 80%, 50%);
+    --color-secondary-hover: hsl(var(--color-secondary-hue), 80%, 60%);
+    --color-secondary-light: hsla(var(--color-secondary-hue), 80%, 50%, 0.12);
+
+    /* Rich Dark Surfaces */
+    --bg-surface-base: #090a0f;
+    --bg-surface-card: #12141d;
+    --bg-surface-elevated: #1a1d29;
+    --bg-code: #181a24;
+
+    /* High Contrast Typography */
+    --text-heading: #f8fafc;
+    --text-main: #cbd5e1;
+    --text-muted: #94a3b8;
+
+    /* Crisp Dark Borders */
+    --border-subtle: #232736;
+    --border-strong: #33394b;
+    --border-accent: hsla(var(--color-primary-hue), 90%, 68%, 0.35);
+
+    /* Dark Mode Status */
+    --color-error: #f87171;
+    --color-error-light: rgba(239, 68, 68, 0.12);
+    --color-success: #34d399;
+    --color-success-light: rgba(16, 185, 129, 0.12);
+
+    /* Deep Dark Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 20px 30px -10px rgba(0, 0, 0, 0.7);
+    --shadow-glow: 0 0 35px -5px hsla(var(--color-primary-hue), 90%, 68%, 0.22);
   }
+}
+
+/* Support class-based dark mode if toggled manually */
+.dark {
+  --color-primary: hsl(var(--color-primary-hue), 90%, 68%);
+  --color-primary-hover: hsl(var(--color-primary-hue), 90%, 75%);
+  --color-primary-light: hsla(var(--color-primary-hue), 90%, 68%, 0.12);
+  --color-primary-glow: hsla(var(--color-primary-hue), 90%, 68%, 0.3);
+
+  --color-secondary: hsl(var(--color-secondary-hue), 80%, 50%);
+  --color-secondary-hover: hsl(var(--color-secondary-hue), 80%, 60%);
+  --color-secondary-light: hsla(var(--color-secondary-hue), 80%, 50%, 0.12);
+
+  --bg-surface-base: #090a0f;
+  --bg-surface-card: #12141d;
+  --bg-surface-elevated: #1a1d29;
+  --bg-code: #181a24;
+
+  --text-heading: #f8fafc;
+  --text-main: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  --border-subtle: #232736;
+  --border-strong: #33394b;
+  --border-accent: hsla(var(--color-primary-hue), 90%, 68%, 0.35);
+}
+
+/* ==========================================================================
+   4. LAYOUT & GLOBAL STYLES
+   ========================================================================== */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-surface-base);
+  color: var(--text-main);
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 #root {
-  width: 1126px;
+  width: 1200px;
   max-width: 100%;
   margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
 
-body {
+/* Typography Harmony */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--text-heading);
+  font-weight: 600;
+  letter-spacing: -0.025em;
   margin: 0;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+  font-size: 3.25rem;
+  line-height: 1.1;
 }
 
 h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
+  font-size: 1.875rem;
+  line-height: 1.25;
+}
 
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.4;
 }
 
 p {
   margin: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+/* Code & Badge Styles */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+  background: var(--bg-code);
+  color: var(--text-heading);
+  border: 1px solid var(--border-subtle);
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+/* ==========================================================================
+   5. PREMIUM GLASS & UTILITY CLASSES
+   ========================================================================== */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+}
+
+@media (prefers-color-scheme: dark) {
+  .glass-panel {
+    background: rgba(18, 20, 29, 0.75);
+    border-color: var(--border-subtle);
+  }
+}
+
+.glow-effect {
+  box-shadow: var(--shadow-glow);
+}
+
+/* Subtle Smooth Transitions for Inputs & Buttons */
+button,
+input,
+select,
+a {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }

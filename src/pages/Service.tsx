@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getServices } from '@/service/authApi'
+import type { IService } from '@/types/auth';
 
 function Service() {
-    const [services, setServices] = useState([]);
+    const [services, setServices] = useState<IService[]>([]);
     useEffect(() => {
         async function loadServices() {
             try {

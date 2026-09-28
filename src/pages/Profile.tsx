@@ -1,4 +1,4 @@
-import { profileSchema } from "@/schemas/authSchema";
+
 import { getProfile } from "@/service/authApi";
 import type { IUser } from "@/types/auth";
 import { useEffect, useState } from "react";
@@ -13,20 +13,32 @@ function Profile() {
 
             try {
                 const response = await getProfile();
-                setProfile(response.user ?? response);
-            } catch (error) {
-                console.log(error);
-
+                console.log(response);
+                setProfile(response);
+            } catch (error: unknown) {
+                setError(
+                    error instanceof Error
+                        ? error.message
+                        : "Unable to load profile"
+                );
             }
 
         }
         loadProfile();
     }, []);
+    if (error) {
+        return (
+            <p className="text-red-600">
+                {error}
+            </p>
+        );
+    }
+
     if (!profile) {
         return <p>Loading profile...</p>;
     }
-    if (error) {
-        return <p>{error}</p>;
+    if (!profile) {
+        return <p>Loading profile...</p>;
     }
     return (
         <main className="">
@@ -38,6 +50,9 @@ function Profile() {
 
                 <p className="text-slate-500">
                     {profile.email}
+                </p>
+                <p className="text-slate-500">
+                    {profile.phone}
                 </p>
             </div>
 
