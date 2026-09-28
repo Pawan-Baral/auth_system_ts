@@ -1,10 +1,27 @@
 import axios from "axios";
 
-import type { ILoginValues, ILoginResponse, IRegisterValues, IRegisterResponse, IUser } from "@/types/auth";
+import type { ILoginValues, ILoginResponse, IRegisterValues, IRegisterResponse, IUser, ProfileResponse } from "@/types/auth";
 //https://auth.durlavparajuli.com.np/ 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
 });
+api.interceptors.request.use(
+    (config) => {
+        // Example: Automatically attach a JWT authorization token from localStorage
+        const token = localStorage.getItem('accessToken');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+
+        console.log(`Sending ${config.method.toUpperCase()} request to ${config.url}`);
+        return config; // You MUST return the config object, otherwise the request hangs
+    },
+    (error) => {
+        setError(error.message);
+        // Handle request setup errors here
+        return Promise.reject(error);
+    }
+);
 
 export async function loginUser(values: ILoginValues): Promise<ILoginResponse> {
     const response = await api.post<ILoginResponse>("/api/auth/login", values);
@@ -16,10 +33,18 @@ export async function registerUser(values: IRegisterValues): Promise<IRegisterRe
     return response.data;
 
 }
-export async function getProfile(): Promise<IUser> {
+export async function getProfile(): Promise<ProfileResponse> {
     const response = await api.get<IUser>(
         "/api/profile"
     );
 
     return response.data;
 }
+export async function getServices() {
+    const response = await api.get(
+        "/api/services"
+    );
+
+    return response.data;
+}
+

@@ -34,3 +34,15 @@ export const registerSchema = Yup.object({
         )
         .required("Confirm your password"),
 });
+export const profileSchema = Yup.object({
+    fullName: Yup.string()
+        .trim()
+        .required("Full name is required"),
+
+    email: Yup.string()
+        .trim()
+        .email("Enter a valid email")
+        .required("Email is required"),
+
+    phone: Yup.string(),
+});

@@ -33,3 +33,6 @@ export interface IRegisterResponse {
     message: string;
     user: IUser;
 }
+export interface ProfileResponse {
+    user: IUser;
+}
