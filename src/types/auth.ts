@@ -58,3 +58,4 @@ export interface IContact {
 export interface IContactResponse {
     message: string;
 }
+export type AdminActiveSection = "overview" | "messages" | "services" | "users";

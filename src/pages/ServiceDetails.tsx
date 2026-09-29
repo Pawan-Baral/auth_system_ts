@@ -25,7 +25,7 @@ function ServiceDetails() {
 
                 setService(data);
             } catch (error: unknown) {
-                setError(error.message);
+                setError(error instanceof Error ? error.message : "Unable to load service");
             } finally {
                 setIsLoading(false);
             }

@@ -10,6 +10,9 @@ import Contact from "@/pages/Contact";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import ServiceDetails from "@/pages/ServiceDetails";
+import AdminMessages from "@/components/pages-component/AdminMessages";
+import AdminServices from "@/components/pages-component/AdminServices";
+import AdminUsers from "@/components/pages-component/AdminUsers";
 export const privateRoutes = [
     {
         element: <ProtectedRoute />,
@@ -28,6 +31,18 @@ export const privateRoutes = [
                     {
                         path: "/admin",
                         element: <AdminDashboard />
+                    },
+                    {
+                        path: "/admin/services",
+                        element: <AdminServices />
+                    },
+                    {
+                        path: "/admin/messages",
+                        element: <AdminMessages />
+                    },
+                    {
+                        path: "/admin/users",
+                        element: <AdminUsers />
                     },
 
                 ]
