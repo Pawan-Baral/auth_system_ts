@@ -26,11 +26,18 @@ export default function Contact() {
                 });
                 toast.success(response.message || "Message sent successfully!");
             } catch (error: unknown) {
+                const message =
+                    error instanceof Error
+                        ? error.message
+                        : "Something went wrong";
+
                 setStatus({
                     type: "error",
-                    message: error,
+                    message,
                 });
-                toast.error(message || "Ops something went wrong !");
+
+                toast.error(message);
+
             } finally {
                 setSubmitting(false);
             }

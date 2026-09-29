@@ -2,7 +2,7 @@
 
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/providers/AuthContext";
-import UserDropdownMenu from "@/components/functional/UserDropdownMenu";
+import UserDropdownMenu from "@/components/functional/UserDropDownMenu";
 export default function Navbar() {
     const { user } = useAuth();
     const navigate = useNavigate();
@@ -10,7 +10,7 @@ export default function Navbar() {
 
     return (<>
 
-        <div className="sticky top-0 z-50 flex h-16 items-center justify-between bg-white px-4 sm:px-6  bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900">
+        <div className="sticky top-0 z-50 flex h-16 items-center justify-between bg-white px-4 sm:px-6  bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 glass-panel">
             <div className="flex items-center gap-2">
                 <Link to="/home">
                     <img

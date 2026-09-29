@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import type { ILoginValues, ILoginResponse, IRegisterValues, IRegisterResponse, IUser, ProfileResponse, IContact } from "@/types/auth";
+import type { ILoginValues, ILoginResponse, IRegisterValues, IRegisterResponse, IUser, ProfileResponse, IContact, IService, IContactResponse } from "@/types/auth";
 //https://auth.durlavparajuli.com.np/ 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -47,7 +47,7 @@ export async function getServices() {
     return response.data;
 }
 export async function submitContact(contactData: IContact): Promise<{ message: string }> {
-    const response = await api.post<IContact>(
+    const response = await api.post<IContactResponse>(
         "/api/contact", contactData
     );
 
@@ -59,6 +59,11 @@ export async function logoutUser() {
     );
 
     return response.data;
+}
+export async function getServiceByIdOrSlug(idOrSlug: string): Promise<IService> {
+    const response = await api.get(`/api/services/${idOrSlug}`)
+    return response.data;
+
 }
 
 

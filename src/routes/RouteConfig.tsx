@@ -9,6 +9,7 @@ import Service from "@/pages/Service";
 import Contact from "@/pages/Contact";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
+import ServiceDetails from "@/pages/ServiceDetails";
 export const privateRoutes = [
     {
         element: <ProtectedRoute />,
@@ -68,5 +69,9 @@ export const publicRoutes = [
     {
         path: "/register",
         element: <Register />
-    }
+    },
+    {
+        path: "services/:idOrSlug",
+        element: <ServiceDetails />,
+    },
 ]

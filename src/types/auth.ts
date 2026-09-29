@@ -40,11 +40,21 @@ export interface IService {
     shortDescription?: string;
     description: string;
     price?: number;
+    icon?: string;
+    image?: string | File,
+    currency?: string,
+    isActive?: boolean,
+    tags?: string[],
+    order?: number,
+
 }
 export interface IContact {
     name: string,
     email: string,
     phone: string,
     subject: string,
+    message: string;
+}
+export interface IContactResponse {
     message: string;
 }

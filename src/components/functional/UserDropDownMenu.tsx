@@ -48,7 +48,7 @@ export default function UserDropdownMenu() {
                 render={
                     <Button
                         type="button"
-                        className="flex h-10 w-10 items-center justify-center rounded-full bg-red-600 font-semibold text-primary shadow-sm transition hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+                        className="flex h-10 w-10 items-center justify-center rounded-full bg-red-600 font-semibold text-muted shadow-sm transition hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
                     >
                         {initials}
                     </Button>
@@ -77,7 +77,7 @@ export default function UserDropdownMenu() {
 
                 <DropdownMenuGroup>
                     <DropdownMenuItem
-                        className="transition-colors hover:bg-slate-100 hover:text-blue-700"
+                        className="transition-colors hover:bg-slate-100  text-black hover:text-blue-700"
                         onClick={() => navigate("/profile")}
                     >
                         <UserRound className="mr-2 h-4 w-4" />
@@ -85,7 +85,7 @@ export default function UserDropdownMenu() {
                     </DropdownMenuItem>
 
                     <DropdownMenuItem
-                        className="transition-colors hover:bg-slate-100 hover:text-blue-700"
+                        className="transition-colors hover:bg-slate-100 text-black hover:text-blue-700"
                         onClick={() => navigate("/dashboard")}
                     >
                         <LayoutDashboard className="mr-2 h-4 w-4" />
@@ -94,7 +94,7 @@ export default function UserDropdownMenu() {
 
                     {isAdmin && (
                         <DropdownMenuItem
-                            className="transition-colors hover:bg-slate-100 hover:text-blue-700"
+                            className="transition-colors hover:bg-slate-100 text-black hover:text-blue-700"
                             onClick={() => navigate("/admin")}
                         >
                             <ShieldCheck className="mr-2 h-4 w-4" />
@@ -107,7 +107,7 @@ export default function UserDropdownMenu() {
 
                 <DropdownMenuGroup>
                     <DropdownMenuItem
-                        className="transition-colors hover:bg-slate-100 hover:text-red-700"
+                        className="transition-colors hover:bg-slate-100 text-black hover:text-red-700"
                         onClick={handleLogout}
                     >
                         <LogOut className="mr-2 h-4 w-4" />
