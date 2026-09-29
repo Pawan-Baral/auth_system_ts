@@ -14,6 +14,11 @@ function ServiceDetails() {
 
     useEffect(() => {
         async function loadService() {
+            if (!idOrSlug) {
+                setError("Invalid service URL");
+                setIsLoading(false);
+                return;
+            }
             try {
                 const data =
                     await getServiceByIdOrSlug(idOrSlug);
