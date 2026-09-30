@@ -77,7 +77,7 @@ function ServiceDetails() {
                 ← Back to services
             </Link>
 
-            <article className=" flex flex-col  mt-6 overflow-hidden rounded-2xl border bg-white shadow-lg">
+            <article className=" flex flex-col  mt-6 overflow-hidden rounded-2xl border bg-surface shadow-lg">
                 {service.image && (
                     <img
                         src={`${API_BASE_URL}/public/${service.image}`}
@@ -101,8 +101,8 @@ function ServiceDetails() {
                         <span
                             className={
                                 service.isActive
-                                    ? "rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-700"
-                                    : "rounded-full bg-red-100 px-4 py-2 text-sm font-medium text-red-700"
+                                    ? "mt-3 inline-block rounded-full bg-success-dark px-3 py-1 text-sm font-semibold text-success"
+                                    : "mt-3 inline-block rounded-full bg-error-dark px-3 py-1 text-sm font-semibold text-error"
                             }
                         >
                             {service.isActive
@@ -112,12 +112,12 @@ function ServiceDetails() {
                     </div>
 
                     <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                        <div className="rounded-lg bg-slate-50 p-4">
-                            <p className="text-sm text-slate-500">
+                        <div className="rounded-lg bg-surface-card p-4">
+                            <p className="mt-4 font-semibold text-white">
                                 Price
                             </p>
 
-                            <p className="mt-1 text-xl font-bold text-slate-900">
+                            <p className="mt-4 font-semibold text-primary">
                                 {service.price !== null &&
                                     service.price !== undefined
                                     ? `${service.currency || "USD"} ${service.price}`
@@ -125,22 +125,22 @@ function ServiceDetails() {
                             </p>
                         </div>
 
-                        <div className="rounded-lg bg-slate-50 p-4">
-                            <p className="text-sm text-slate-500">
+                        <div className="rounded-lg bg-surface-card p-4">
+                            <p className="mt-4 font-semibold text-white">
                                 Display order
                             </p>
 
-                            <p className="mt-1 text-xl font-bold text-slate-900">
+                            <p className="mt-1 text-xl font-bold text-muted">
                                 {service.order ?? "N/A"}
                             </p>
                         </div>
 
-                        <div className="rounded-lg bg-slate-50 p-4">
-                            <p className="text-sm text-slate-500">
+                        <div className="rounded-lg bg-surface-card p-4">
+                            <p className="mt-4 font-semibold text-white">
                                 Slug
                             </p>
 
-                            <p className="mt-1 break-words font-medium text-slate-900">
+                            <p className="mt-1 break-words font-medium text-muted">
                                 {service.slug}
                             </p>
                         </div>
@@ -166,7 +166,7 @@ function ServiceDetails() {
                                 {service.tags.map((tag) => (
                                     <span
                                         key={tag}
-                                        className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700"
+                                        className="rounded-full bg-primary-light px-3 py-1 text-sm font-medium text-primary"
                                     >
                                         #{tag}
                                     </span>
