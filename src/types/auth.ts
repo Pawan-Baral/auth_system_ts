@@ -41,7 +41,7 @@ export interface IService {
     description: string;
     price?: number;
     icon?: string;
-    image?: string | File,
+    image?: string,
     currency?: string,
     isActive?: boolean,
     tags?: string[],

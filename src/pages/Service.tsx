@@ -48,79 +48,91 @@ export default function Services() {
     }
 
     return (
-        <main className="mx-auto max-w-6xl flex flex-col px-6 py-12">
-            <h1 className="mb-8 text-3xl font-bold">Our Services</h1>
+        <main className="min-h-screen bg-surface-base px-6 py-14 text-main">
+            <div className="mx-auto max-w-6xl">
+                <div className="mb-10 max-w-2xl">
+                    <p className="font-semibold uppercase tracking-widest text-secondary">
+                        What we offer
+                    </p>
 
-            {services.length === 0 ? (
-                <p className="text-gray-500">No services available.</p>
-            ) : (
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {services.map((service, index) => (
-                        <article
-                            key={service.id || index}
-                            className="flex flex-col overflow-hidden transition hover:-translate-y-1 rounded-xl border bg-white shadow-sm"
-                        >
-                            {service.image && (
-                                <img
-                                    src={`${API_BASE_URL}/public/${service.image}`}
-                                    alt={service.title}
-                                    className="h-48 w-full object-cover"
-                                />
-                            )}
-
-                            <div className="p-6 flex flex-1 flex-col justify-between">
-                                <div>
-                                    <h2 className="text-xl font-semibold">
-                                        {service.title}
-                                    </h2>
-
-                                    <p className="mt-3 text-gray-600">
-                                        {service.shortDescription || service.description}
-                                    </p>
-
-                                    {service.price !== undefined && (
-                                        <p className="mt-4 font-semibold">
-                                            {service.currency || "$"} {service.price}
-                                        </p>
-                                    )}
-
-                                    {service.isActive !== undefined && (
-                                        <p
-                                            className={
-                                                service.isActive
-                                                    ? "mt-2 font-semibold text-green-600"
-                                                    : "mt-2 font-semibold text-red-600"
-                                            }
-                                        >
-                                            {service.isActive ? "Active" : "Inactive"}
-                                        </p>
-                                    )}
-
-                                    {service.tags && service.tags.length > 0 && (
-                                        <div className="mt-4 flex flex-wrap gap-2">
-                                            {service.tags.map((tag) => (
-                                                <span
-                                                    key={tag}
-                                                    className="rounded-full bg-gray-100 px-3 py-1 text-sm"
-                                                >
-                                                    #{tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
-
-                                <Link
-                                    to={`/services/${service.id}`}
-                                    className="mt-5 inline-block text-center rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-                                >
-                                    View details
-                                </Link>
-                            </div>
-                        </article>
-                    ))}
+                    <h1 className="text-4xl  font-bold text-heading">
+                        Services built around your goals
+                    </h1>
                 </div>
-            )}
-        </main>
+
+                {services.length === 0 ? (
+                    <p className="rounded-xl border border-border-subtle bg-surface-card p-8 text-center text-muted"></p>
+                ) : (
+                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        {services.map((service, index) => (
+                            <article
+                                key={service.id || index}
+                                className="group flex flex-col overflow-hidden rounded-2xl border border-border-subtle bg-surface-card shadow-premium-sm transition duration-300 hover:-translate-y-2 hover:border-border-accent hover:shadow-premium-lg"
+                            >
+                                {service.image && (
+                                    <div className="overflow-hidden">
+                                        <img
+                                            src={`${API_BASE_URL}/public/${service.image}`}
+                                            alt={service.title}
+                                            className="h-52 w-full object-cover transition duration-500 group-hover:scale-105"
+                                        />
+                                    </div>
+                                )}
+
+                                <div className="p-6 flex flex-1 flex-col justify-between">
+                                    <div>
+                                        <h2 className="text-xl font-semibold text-heading">
+                                            {service.title}
+                                        </h2>
+
+                                        <p className="mt-3 leading-7 text-muted">
+                                            {service.shortDescription || service.description}
+                                        </p>
+
+                                        {service.price !== undefined && (
+                                            <p className="mt-4 font-semibold text-primary">
+                                                {service.currency || "$"} {service.price}
+                                            </p>
+                                        )}
+
+                                        {service.isActive !== undefined && (
+                                            <p
+                                                className={
+                                                    service.isActive
+                                                        ? "mt-3 inline-block rounded-full bg-success-light px-3 py-1 text-sm font-semibold text-success"
+                                                        : "mt-3 inline-block rounded-full bg-error-light px-3 py-1 text-sm font-semibold text-error"
+                                                }
+                                            >
+                                                {service.isActive ? "Active" : "Inactive"}
+                                            </p>
+                                        )}
+
+                                        {service.tags && service.tags.length > 0 && (
+                                            <div className="mt-4 flex flex-wrap gap-2">
+                                                {service.tags.map((tag) => (
+                                                    <span
+                                                        key={tag}
+                                                        className="rounded-full bg-primary-light px-3 py-1 text-sm font-medium text-primary"
+                                                    >
+                                                        #{tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <Link
+                                        to={`/services/${service.id}`}
+                                        className="mt-6 inline-block rounded-xl bg-primary px-4 py-3 text-center font-semibold text-white hover:bg-primary-hover"
+                                    >
+                                        View details
+                                    </Link>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </main >
     );
 }

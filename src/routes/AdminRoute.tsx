@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/providers/AuthContext";
 import AdminSidebar from "@/components/functional/AdminSidebar";
+import Navbar from "@/pages/Navbar";
 
 function AdminRoute() {
     const { user } = useAuth();
@@ -15,6 +16,7 @@ function AdminRoute() {
 
     return (
         <div className="min-h-screen bg-slate-100">
+            <Navbar />
             <AdminSidebar />
 
             <main className="min-h-screen pl-16 p-8">
