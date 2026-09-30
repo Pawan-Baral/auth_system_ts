@@ -36,6 +36,7 @@ export interface IRegisterResponse {
 export interface ProfileResponse extends IUser { }
 export interface IService {
     id: string;
+    slug?: string;
     title: string;
     shortDescription?: string;
     description: string;
