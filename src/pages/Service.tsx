@@ -85,7 +85,7 @@ export default function Services() {
                                             {service.title}
                                         </h2>
 
-                                        <p className="mt-3 leading-7 text-muted">
+                                        <p className="mt-3  text-muted">
                                             {service.shortDescription || service.description}
                                         </p>
 

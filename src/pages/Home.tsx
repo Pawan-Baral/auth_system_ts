@@ -144,7 +144,7 @@ export default function Home() {
                         to="/services"
                         className="font-semibold text-primary hover:text-primary-hover"
                     >
-                        View all services →
+                        View all services ➤
                     </Link>
                 </div>
 

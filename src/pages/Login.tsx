@@ -1,68 +1,177 @@
+import { useState } from "react";
+import { useFormik } from "formik";
+import { Eye, EyeOff } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import { loginUser } from "@/service/authApi";
-import { useNavigate, } from "react-router-dom"
+import { loginSchema } from "@/schemas/authSchema";
 import type { ILoginValues } from "@/types/auth";
 import { useAuth } from "@/providers/AuthContext";
-import type React from "react";
-function Login() {
+
+export default function Login() {
     const navigate = useNavigate();
     const { startSession } = useAuth();
+    const [showPassword, setShowPassword] = useState(false);
 
-    async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        const formData = new FormData(event?.currentTarget);
-        const loginData: ILoginValues = {
-            email: formData.get("email") as string,
-            password: formData.get("password") as string,
-        };
-        try {
-            const response = await loginUser(loginData);
-            startSession(response);
-            navigate("/home", { replace: true });
-            console.log(response);
+    const formik = useFormik<ILoginValues>({
+        initialValues: {
+            email: "",
+            password: "",
+        },
 
-        } catch (error) {
-            console.error(error);
-        }
-    }
+        validationSchema: loginSchema,
+
+        onSubmit: async (values, { setSubmitting }) => {
+            try {
+                const response = await loginUser(values);
+
+                startSession(response);
+
+                toast.success(
+                    response.message || "Login successful"
+                );
+
+                navigate("/home", { replace: true });
+            } catch (error: unknown) {
+                const message =
+                    error instanceof Error
+                        ? error.message
+                        : "Unable to log in";
+
+                toast.error(message);
+            } finally {
+                setSubmitting(false);
+            }
+        },
+    });
+
     return (
-        <div>
-            <main className='flex min-h-screen items-center justify-center bg-surface-base px-4 py-8'>
-                <form onSubmit={handleLogin}
-                    className="flex w-full max-w-lg border-none flex-col gap-5 bg-surface-card rounded-2xl border border-slate-200  glow-effect p-6 shadow-lg">
-                    <div className="mb-1 text-center">
-                        <h1 className="text-3xl font-bold tracking-tighter text-heading">Welcome backs</h1>
-                        <p className="text-md text-muted"> Sign in to continue to your account.</p>
-                    </div>
-                    <div className="flex flex-row items-center gap-4">
-                        <label htmlFor="email"
-                            className="text-sm w-20 font-medium text-muted">Email</label>
+        <main className="flex min-h-screen items-center justify-center bg-surface-base px-4 py-8">
+            <form
+                onSubmit={formik.handleSubmit}
+                className="w-full max-w-md rounded-2xl border border-border-subtle bg-surface-card p-6 shadow-premium-md sm:p-8"
+            >
+                <div className="text-center">
+                    <p className="font-semibold uppercase tracking-widest text-secondary">
+                        Welcome back
+                    </p>
+
+                    <h1 className="mt-3 text-3xl font-bold text-heading">
+                        Sign in to your account
+                    </h1>
+
+                    <p className="mt-3 text-muted">
+                        Enter your details to continue.
+                    </p>
+                </div>
+
+                <div className="mt-8 space-y-5">
+                    <div>
+                        <label
+                            htmlFor="email"
+                            className="mb-2 block font-medium text-heading"
+                        >
+                            Email
+                        </label>
+
                         <input
                             id="email"
                             name="email"
                             type="email"
-                            placeholder="Sachin.yadav@yahoo.com"
-                            className="h-11 flex-1 w-full bg-surface-base rounded-md px-3 text-main placeholder:text-slate-400 "
+                            placeholder="you@example.com"
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            className="h-11 w-full rounded-lg border border-border-strong bg-surface-base px-3 text-main outline-none focus:border-primary"
                         />
+
+                        {formik.touched.email &&
+                            formik.errors.email && (
+                                <p className="mt-1 text-sm text-error">
+                                    {formik.errors.email}
+                                </p>
+                            )}
                     </div>
-                    <div className="flex flex-row items-center gap-4">
-                        <label htmlFor="password" className="text-sm w-20 font-medium text-muted">
+
+                    <div>
+                        <label
+                            htmlFor="password"
+                            className="mb-2 block font-medium text-heading"
+                        >
                             Password
                         </label>
 
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            placeholder="Enter your password"
-                            className="h-11 flex-1 w-full bg-surface-base rounded-md px-3 text-main placeholder:text-slate-400"
-                        />
+                        <div className="relative">
+                            <input
+                                id="password"
+                                name="password"
+                                type={showPassword ? "text" : "password"}
+                                placeholder="Enter your password"
+                                value={formik.values.password}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                className="h-11 w-full rounded-lg border border-border-strong bg-surface-base px-3 pr-12 text-main outline-none focus:border-primary"
+                            />
+
+                            <button
+                                type="button"
+                                aria-label={
+                                    showPassword
+                                        ? "Hide password"
+                                        : "Show password"
+                                }
+                                onClick={() =>
+                                    setShowPassword((current) => !current)
+                                }
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-primary"
+                            >
+                                {showPassword ? (
+                                    <EyeOff size={20} />
+                                ) : (
+                                    <Eye size={20} />
+                                )}
+                            </button>
+                        </div>
+
+                        {formik.touched.password &&
+                            formik.errors.password && (
+                                <p className="mt-1 text-sm text-error">
+                                    {formik.errors.password}
+                                </p>
+                            )}
                     </div>
-                    <button type="submit" className="h-11 w-full bg-primary rounded-md text-white hover:bg-primary-hover transition hover:-translate-y-1">Log in </button>
-                </form>
 
-            </main>
-        </div>
-    )
+                    <div className="text-right">
+                        <Link
+                            to="/forgot-password"
+                            className="text-sm font-medium text-primary hover:text-primary-hover hover:underline"
+                        >
+                            Forgot password?
+                        </Link>
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={formik.isSubmitting}
+                        className="h-11 w-full rounded-lg bg-primary font-semibold text-white transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                        {formik.isSubmitting
+                            ? "Logging in..."
+                            : "Log in"}
+                    </button>
+
+                    <p className="text-center text-sm text-muted">
+                        Don&apos;t have an account?{" "}
+                        <Link
+                            to="/register"
+                            className="font-semibold text-primary hover:text-primary-hover hover:underline"
+                        >
+                            Create one
+                        </Link>
+                    </p>
+                </div>
+            </form>
+        </main>
+    );
 }
-
-export default Login;

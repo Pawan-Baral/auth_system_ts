@@ -55,9 +55,9 @@ export default function Contact() {
 
                     <h1 className="mt-4 text-4xl font-bold text-heading">
                         Lets talk about your project
-                    </h1>
+                    </h1><br />
 
-                    <p className="my-5 max-w-xl leading-7 text-muted">
+                    <p className="my-5 max-w-xl  text-muted">
                         Have a question or need help choosing a service?
                         Send us a message and our team will get back to you.
                     </p>
@@ -67,7 +67,7 @@ export default function Contact() {
                             We value our customers
                         </h2>
 
-                        <p className="mt-2 leading-7 text-muted">
+                        <p className="mt-2  text-muted">
                             Your feedback and questions help us provide better
                             solutions and support.
                         </p>
