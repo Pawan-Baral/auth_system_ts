@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import type { ILoginValues, ILoginResponse, IRegisterValues, IRegisterResponse, IUser, ProfileResponse, IContact, IService, IContactResponse } from "@/types/auth";
+import type { ILoginValues, IServicePayload, IChangePasswordValues, IContactMessage, IContactStats, ILoginResponse, IRegisterValues, IRegisterResponse, IUser, ProfileResponse, IContact, IService, IContactResponse, IProfile } from "@/types/auth";
 //https://auth.durlavparajuli.com.np/ 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -65,5 +65,91 @@ export async function getServiceByIdOrSlug(idOrSlug: string): Promise<IService> 
     return response.data;
 
 }
+export async function updateProfile(updatedProfileData: IProfile) {
+    const response = await api.patch("api/profile", updatedProfileData);
+    return response.data;
+}
+export async function changePassword(values: IChangePasswordValues): Promise<{ message: string }> {
+    const response = await api.patch<{ message: string }>(
+        "/api/profile/change-password",
+        values
+    );
 
+    return response.data;
+}
+export async function getAdminUsers(): Promise<IUser[]> {
+    const response = await api.get<IUser[]>("/api/admin/users");
+    return response.data;
+}
+export async function getAdminMessages(): Promise<
+    IContactMessage[]
+> {
+    const response = await api.get<IContactMessage[]>(
+        "/api/contact"
+    );
+
+    return response.data;
+}
+
+export async function getContactStats(): Promise<IContactStats> {
+    const response = await api.get<IContactStats>(
+        "/api/contact/stats"
+    );
+
+    return response.data;
+}
+
+export async function markContactRead(
+    id: string,
+    isRead: boolean
+): Promise<{ message: string }> {
+    const response = await api.patch<{ message: string }>(
+        `/api/contact/${id}/read`,
+        { isRead }
+    );
+
+    return response.data;
+}
+
+export async function deleteContact(
+    id: string
+): Promise<{ message: string }> {
+    const response = await api.delete<{ message: string }>(
+        `/api/contact/${id}`
+    );
+
+    return response.data;
+}
+export async function createService(
+    data: FormData
+): Promise<IService> {
+    const response = await api.post<IService>(
+        "/api/services",
+        data
+    );
+
+    return response.data;
+}
+
+export async function updateService(
+    id: string,
+    data: FormData
+): Promise<IService> {
+    const response = await api.patch<IService>(
+        `/api/services/${id}`,
+        data
+    );
+
+    return response.data;
+}
+
+export async function deleteService(
+    id: string
+): Promise<{ message: string }> {
+    const response = await api.delete<{ message: string }>(
+        `/api/services/${id}`
+    );
+
+    return response.data;
+}
 

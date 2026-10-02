@@ -60,3 +60,39 @@ export interface IContactResponse {
     message: string;
 }
 export type AdminActiveSection = "overview" | "messages" | "services" | "users";
+export interface IProfile {
+    fullName: string;
+    email: string;
+    phone: string;
+    id?: string;
+    role?: string;
+    password?: string;
+    resetToken?: string;
+    resetTokenExpiry?: string;
+}
+export interface IChangePasswordValues {
+    currentPassword: string;
+    newPassword: string;
+    confirmPassword: string;
+}
+export interface IContactMessage extends IContact {
+    id: string;
+    isRead: boolean;
+    createdAt?: string;
+}
+
+export interface IContactStats {
+    total: number;
+    read: number;
+    unread: number;
+}
+export interface IServicePayload {
+    title: string;
+    shortDescription: string;
+    description: string;
+    price: number;
+    currency: string;
+    image?: string | File | null;
+    isActive: boolean;
+    tags: string[];
+}

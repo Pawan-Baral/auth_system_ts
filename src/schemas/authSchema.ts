@@ -108,3 +108,72 @@ export const contactSchema = Yup.object({
         .min(10, "Message must contain at least 10 characters")
         .required("Message is required"),
 });
+export const profileSchema = Yup.object({
+    fullName: Yup.string()
+        .trim()
+        .required("Full name is required"),
+
+    email: Yup.string()
+        .trim()
+        .email("Enter a valid email")
+        .required("Email is required"),
+
+    phone: Yup.string(),
+});
+export const changePasswordSchema = Yup.object({
+    currentPassword: Yup.string()
+        .required("Current password is required"),
+
+    newPassword: Yup.string()
+        .min(8, "Password must contain at least 8 characters")
+        .matches(/[A-Z]/, "Include an uppercase letter")
+        .matches(/[a-z]/, "Include a lowercase letter")
+        .matches(/[0-9]/, "Include a number")
+        .required("New password is required"),
+
+    confirmPassword: Yup.string()
+        .oneOf(
+            [Yup.ref("newPassword")],
+            "Passwords must match"
+        )
+        .required("Confirm password is required"),
+});
+export const serviceSchema = Yup.object({
+    title: Yup.string()
+        .trim()
+        .required("Title is required"),
+
+    shortDescription: Yup.string()
+        .trim()
+        .required("Short description is required"),
+
+    description: Yup.string()
+        .trim()
+        .min(10, "Description must contain at least 10 characters")
+        .required("Description is required"),
+
+    price: Yup.number()
+        .min(0, "Price cannot be negative")
+        .required("Price is required"),
+
+    currency: Yup.string()
+        .trim()
+        .required("Currency is required"),
+
+    image: Yup.mixed()
+        .nullable()
+        .test(
+            "fileType",
+            "Only image files are allowed",
+            (file) => {
+                if (!file) return true;
+
+                return file instanceof File &&
+                    file.type.startsWith("image/");
+            }
+        ),
+
+    tags: Yup.string(),
+
+    isActive: Yup.boolean().required(),
+});

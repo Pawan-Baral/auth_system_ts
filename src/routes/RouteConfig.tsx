@@ -13,6 +13,7 @@ import ServiceDetails from "@/pages/ServiceDetails";
 import AdminMessages from "@/components/pages-component/AdminMessages";
 import AdminServices from "@/components/pages-component/AdminServices";
 import AdminUsers from "@/components/pages-component/AdminUsers";
+import ChangePassword from "@/pages/ChangePassword";
 export const privateRoutes = [
     {
         element: <ProtectedRoute />,
@@ -25,6 +26,11 @@ export const privateRoutes = [
                 path: "/profile",
                 element: <Profile />,
             },
+            {
+                path: "/change-password",
+                element: <ChangePassword />,
+            },
+
             {
                 element: <AdminRoute />,
                 children: [

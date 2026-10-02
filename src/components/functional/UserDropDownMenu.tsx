@@ -5,6 +5,7 @@ import {
     LayoutDashboard,
     ShieldCheck,
     LogOut,
+    KeyRound
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "@/service/authApi";
@@ -90,6 +91,13 @@ export default function UserDropdownMenu() {
                     >
                         <LayoutDashboard className="mr-2 h-4 w-4" />
                         Dashboard
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                        className="text-black transition-colors hover:bg-slate-100 hover:text-blue-700"
+                        onClick={() => navigate("/change-password")}
+                    >
+                        <KeyRound className="mr-2 h-4 w-4" />
+                        Change password
                     </DropdownMenuItem>
 
                     {isAdmin && (

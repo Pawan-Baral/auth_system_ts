@@ -19,10 +19,23 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<IUser | null>(() => {
         const savedUser = localStorage.getItem("user");
-        return savedUser ? JSON.parse(savedUser) : null;
+        if (!savedUser) {
+            return null;
+        }
+
+        try {
+            return JSON.parse(savedUser) as IUser;
+        } catch {
+            localStorage.removeItem("user");
+            return null;
+        }
+
     });
 
     function startSession(data: ILoginResponse) {
+        if (!data.user) {
+            throw new Error("Login response does not contain a user")
+        }
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
         localStorage.setItem("user", JSON.stringify(data.user));
